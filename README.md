@@ -1,73 +1,87 @@
-# 🎵 Indic Song Studio (`indic-song-studio`)
+# 🎵 Indic Song Studio + 🎙️ Voice Studio
 
-**Local Web Studio, CLI Wrapper & AI Agent Skill for Studio-Grade (90+/100) Telugu, Indic & Multilingual Song Generation + SoxR Vocal Timbre Mastering**
+A locally hosted **Web App, Voice Studio, CLI, and Agent Skill** for generating, iterating, and mastering broadcast-grade (`-14 LUFS`) Indian & multilingual songs in **any singer's voice** from a natural-language brief.
 
-![Status](https://img.shields.io/badge/Audio_Standard-48kHz_%2F_320kbps_MP3_%26_24bit_WAV-D4A853)
-![Loudness](https://img.shields.io/badge/Mastering-EBU_R128_-14_LUFS-E0533C)
-![Engine](https://img.shields.io/badge/Engine-ACE--Step_v1.5_Turbo_%2B_FFmpeg_SoxR-4CAF7D)
+Built on **ACE-Step v1.5 Turbo (`acestep-v15-turbo`)** with reference-audio conditioning, **Seed-VC Zero-Shot Singing Voice Conversion (`f0_condition=True`)**, **Edge-TTS Multilingual Neural Reference Synthesis**, and **FFmpeg `librubberband` + `libsoxr` + EBU R128 Studio Mastering**.
 
 ---
 
-## ✨ Overview
+## ✨ Key Features
 
-**Indic Song Studio** turns a natural-language song brief into a studio-mastered song with native Indic script lyrics (`vocal_language='te'` Telugu, `'hi'` Hindi, `'ta'` Tamil, `'sa'` Sanskrit, `'bn'` Bengali, `'pa'` Punjabi, `'en'` English) and a real-time **FFmpeg SoxR Vocal Timbre Mastering Console**.
-
-It includes:
-1. **Locally Hosted Web App (`http://127.0.0.1:7865`)**:
-   - **1-Sentence Song Brief Builder**: Describe the occasion, singer age/persona, language, and beat to auto-populate the complete production brief, native lyrics, and MiniMax-H3 video prompt.
-   - **⚡ Instant Vocal Timbre Remaster (2s Local SoxR)**: Modify the vocal age/timbre (`+1.0 st` **12-Year-Old Boy Master**, `+1.5 st` Young Child, `+0.5 st` Teen, `0.0 st` Original Studio Pitch, or custom `-3.0` to `+3.0 st`) and 3-band EQ (`95 Hz` Dholak/Mridangam warmth, `3.2 kHz` Vocal Presence, `10.5 kHz` Temple Bell shimmer) in **2 seconds locally**—so you can tweak and compare versions over and over without waiting for cloud generation.
-   - **🎵 Full Cloud AI Song Generation**: Submits native-script lyrics and instrumentation prompts to **ACE-Step v1.5 Turbo** (with automatic fallback between non-ZeroGPU CPU/GPU spaces and ZeroGPU spaces) and automatically runs the SoxR + EBU R128 (`-14.0 LUFS`) mastering pipeline.
-   - **Real-Time A/B Master Switcher**: Toggle seamlessly between **A: 12yo Vocal Master (320 kbps MP3)** and **B: Original Pitch Master (D Major)** during playback.
-2. **CLI Wrapper (`song_engine.py`)**: Run full song generations or remasters from any terminal or script.
-3. **Agent Skill (`skills/indic-song-studio/SKILL.md`)**: Ready-to-install skill for Google Antigravity, Claude Code, and Cursor.
+- **🎙️ Integrated Voice Studio (17+ Singer Personas + Custom Voice Cloning)**:
+  - **Mention anyone in your brief** — e.g., *"a 12-year-old boy"*, *"a 6-year-old kid"*, *"a melodious female playback singer"*, *"a Carnatic vidwan"*, *"a Telugu Janapada mass folk singer"*, *"a Sufi qawwali singer"*, *"a grandfather"*, or *"a temple choir"* — and the studio automatically detects and configures that singer's voice!
+  - **17 Built-in Singer Personas across 4 categories:**
+    - **👧 Children & Youth:** `12yo_boy` (12-Year-Old Devotional Boy), `10yo_girl` (10-Year-Old Sweet Girl), `6yo_child` (6-Year-Old Little Kid), `16yo_teen_boy` (16-Year-Old Youth Male), `16yo_teen_girl` (16-Year-Old Youth Female)
+    - **👩‍🎤 Female Singers:** `female_playback` (Shreya/Chitra Style), `female_carnatic` (Carnatic Classical Vidushi), `female_folk` (Janapada Folk Female), `female_indie` (Soft Indie Acoustic Female)
+    - **👨‍🎤 Male Singers:** `male_playback` (Sid Sriram/Arijit Style), `male_carnatic` (Carnatic Classical Vidwan), `male_mass_folk` (Tollywood Dappu Mass Folk Male), `male_sufi` (Sufi / Soulful High Tenor), `male_baritone` (Deep Cinematic Baritone)
+    - **🕉️ Elders & Ensemble:** `elder_grandfather` (Warm Grandfather / Elder), `elder_grandmother` (Devotional Grandmother / Bhajan), `temple_choir` (Grand Temple Group Chorus)
+  - **🧬 Custom Voice Cloning (`.wav` / `.mp3` Upload):** Upload any 5–20 second clean voice recording in the Web UI to analyze its fundamental frequency ($f_0$) and clone that voice onto new or existing songs.
+  - **🔊 Instant Voice Audition:** Preview every singer persona's reference voice right in the browser before generating or remastering.
+- **🗣️ Natural-Language Brief to Full Song Plan**:
+  - Automatically parses your text brief into structured **ACE-Step style tags**, **native-script lyrics** (`[Intro]`, `[Verse 1]`, `[Chorus]`, `[Verse 2]`, `[Bridge]`, `[Outro]`), **BPM**, **Musical Scale**, **Language**, and **Voice Studio Singer Persona**.
+- **⚡ Instant Voice Switching & Re-Mastering (< 3 seconds locally, or Cloud Seed-VC)**:
+  - Pick any previously generated take from your library and click **"Apply Selected Singer Voice & Mastering to Current Audio"** to switch the singer (e.g., from a 12-year-old boy to a Female Playback Singer, Carnatic Vidwan, or Temple Choir) using FFmpeg `librubberband` formant-shifting, `libsoxr` varispeed, custom 4-band vocal tract EQ, and optional **Seed-VC Zero-Shot Singing Voice Conversion**.
+- **🌏 10+ Native Indian & Global Languages**:
+  - First-class support for **Telugu (`te`)**, **Hindi (`hi`)**, **Tamil (`ta`)**, **Kannada (`kn`)**, **Malayalam (`ml`)**, **Sanskrit (`sa`)**, **Bengali (`bn`)**, **Marathi (`mr`)**, **Punjabi (`pa`)**, and **English (`en`)**.
 
 ---
 
-## 🚀 Quick Start (Local Web App)
+## 🚀 Quick Start
 
-### Prerequisites
-- Python 3.10+
-- `ffmpeg` (with `libsoxr` and `libmp3lame`)
+### 1. Launch the Local Web Studio (`http://127.0.0.1:7865`)
 
-### 1. Clone & Launch
 ```bash
-git clone https://github.com/vamshicreates/indic-song-studio.git
-cd indic-song-studio
-chmod +x start.sh
 ./start.sh
 ```
 
-Then open **`http://127.0.0.1:7865`** in your browser.
+Then open **[http://127.0.0.1:7865](http://127.0.0.1:7865)** in your browser.
 
----
+### 2. Command-Line Interface (`cli.py`)
 
-## 🎧 Included Reference Production: *రావయ్య గణపయ్యా మా ఇంటికి (Raavayya Ganapayya Maa Intiki)*
-
-Pre-loaded in `outputs/`:
-- **`outputs/Raavayya_Ganapayya_Reference_12yo_Master.mp3`** — **12-Year-Old Boy Vocal Master** (`+1.0 st` / `1.059463x` SoxR Varispeed, 48 kHz, 320 kbps MP3, `-14.0 LUFS`)
-- **`outputs/Raavayya_Ganapayya_Reference_Original_Pitch_Master.mp3`** — **Original Studio Pitch Master** (`0.0 st`, D Major, 108 BPM, 48 kHz, 320 kbps MP3, `-14.0 LUFS`)
-- **`outputs/Raavayya_Ganapayya_Reference_Production_Brief.md`** — Full Telugu lyrics, musical architecture, and MiniMax-H3 multimodal prompt.
-
----
-
-## 🛠️ CLI Usage
-
+List all 17+ built-in singer personas:
 ```bash
-# Generate from a natural-language brief:
-python3 song_engine.py \
-  --brief "Telugu devotional song on Lord Ganesha for Ganesh Chaturthi sung by a 12-year-old kid out of love" \
-  --lang te \
-  --bpm 108 \
-  --key "D major" \
-  --semitones 1.0
+python3 cli.py --list-voices
+```
+
+Generate a new song from a text brief (auto-detects the singer from your brief or via `--voice`):
+```bash
+python3 cli.py \
+  --brief "Generate a Telugu Ganesh Chaturthi song sung by a melodious female playback singer inviting Lord Ganesha to our house with festive Dholak and Nadaswaram" \
+  --duration 95
+```
+
+Switch the singer voice on an existing audio file in seconds:
+```bash
+python3 cli.py \
+  --remaster outputs/Raavayya_Ganapayya_Original_Pitch_Master.mp3 \
+  --voice female_playback
+```
+
+Clone a custom `.wav`/`.mp3` voice onto a song using Seed-VC + Studio Mastering:
+```bash
+python3 cli.py \
+  --remaster outputs/Raavayya_Ganapayya_Original_Pitch_Master.mp3 \
+  --custom-voice-file /path/to/my_voice.wav \
+  --custom-voice-name "My Custom Singer" \
+  --use-seedvc
 ```
 
 ---
 
-## 🧩 Installing as an Agent Skill (Antigravity / Claude Code)
+## 📁 Repository Structure
 
-Copy `skills/indic-song-studio` into your workspace `.agents/skills/` or global `~/.gemini/config/skills/` directory:
-
-```bash
-cp -R skills/indic-song-studio ~/.gemini/config/skills/
+```text
+indic-song-studio/
+├── server.py                         # FastAPI local web server (http://127.0.0.1:7865)
+├── song_engine.py                    # Brief parser, ACE-Step v1.5 client & mastering orchestrator
+├── voice_studio.py                   # 17+ Singer Personas, Edge-TTS ref synthesis, Rubberband/SoxR & Seed-VC
+├── cli.py                            # CLI wrapper for terminal & agent automation
+├── start.sh                          # One-command launcher
+├── requirements.txt                  # Python dependencies (fastapi, uvicorn, gradio_client, edge-tts)
+├── static/
+│   └── index.html                    # Interactive Web Studio UI + Voice Studio Selector & Uploader
+├── skills/
+│   └── indic-song-studio/
+│       └── SKILL.md                  # Agent Skill definition
+└── outputs/                          # Generated & mastered MP3/WAV tracks + history.json
 ```

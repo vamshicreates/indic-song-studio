@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Indic Song Studio — AI Devotional & Film Music Mastering Console</title>
+  <title>Indic Song Studio + Voice Studio — Multi-Voice AI Singing & Mastering Console</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+Telugu:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,7 +20,6 @@
       --kumkum: #E0533C;
       --text-ivory: #F4EFE6;
       --text-muted: #A49788;
-      --text-dim: #73685C;
       --emerald: #4CAF7D;
       --font-display: 'Instrument Serif', 'Noto Serif Telugu', Georgia, serif;
       --font-telugu: 'Noto Serif Telugu', 'Plus Jakarta Sans', serif;
@@ -46,7 +45,7 @@
     header {
       border-bottom: 1px solid var(--border-subtle);
       background: linear-gradient(180deg, #1A1613 0%, #12100E 100%);
-      padding: 20px 32px;
+      padding: 18px 32px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -58,19 +57,19 @@
       display: flex;
       align-items: baseline;
       gap: 14px;
+      flex-wrap: wrap;
     }
 
     .brand h1 {
       font-family: var(--font-display);
       font-weight: 400;
       font-size: 2rem;
-      letter-spacing: 0.01em;
       color: var(--text-ivory);
     }
 
     .brand-tag {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       color: var(--brass);
       background: rgba(212, 168, 83, 0.1);
       border: 1px solid var(--border-brass);
@@ -78,12 +77,12 @@
       border-radius: 4px;
     }
 
-    .console-Readout {
+    .console-readout {
       display: flex;
       align-items: center;
       gap: 18px;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--text-muted);
     }
 
@@ -98,21 +97,20 @@
     }
 
     .container {
-      max-width: 1380px;
+      max-width: 1420px;
       margin: 0 auto;
-      padding: 24px 32px;
+      padding: 22px 32px;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      gap: 22px;
     }
 
-    /* Natural Language Brief Banner */
     .brief-bar {
       background: var(--bg-panel);
       border: 1px solid var(--border-subtle);
       border-left: 3px solid var(--brass);
       border-radius: 8px;
-      padding: 20px 24px;
+      padding: 18px 22px;
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 16px;
@@ -124,7 +122,7 @@
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--brass-bright);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .brief-input-wrap textarea {
@@ -134,33 +132,26 @@
       border-radius: 6px;
       color: var(--text-ivory);
       font-family: var(--font-sans);
-      font-size: 0.95rem;
-      padding: 12px 14px;
+      font-size: 0.93rem;
+      padding: 10px 14px;
       resize: vertical;
-      min-height: 64px;
+      min-height: 58px;
     }
 
-    .brief-input-wrap textarea:focus,
-    input:focus,
-    select:focus,
-    textarea:focus {
+    input:focus, select:focus, textarea:focus {
       outline: none;
       border-color: var(--brass);
     }
 
-    /* Main 2-Column Studio Grid */
     .studio-grid {
       display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 24px;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 22px;
       align-items: start;
     }
 
-    @media (max-width: 1024px) {
-      .studio-grid {
-        grid-template-columns: 1fr;
-      }
-      .brief-bar {
+    @media (max-width: 1080px) {
+      .studio-grid, .brief-bar {
         grid-template-columns: 1fr;
       }
     }
@@ -169,10 +160,10 @@
       background: var(--bg-panel);
       border: 1px solid var(--border-subtle);
       border-radius: 8px;
-      padding: 24px;
+      padding: 22px;
       display: flex;
       flex-direction: column;
-      gap: 18px;
+      gap: 16px;
     }
 
     .panel-header {
@@ -180,40 +171,41 @@
       justify-content: space-between;
       align-items: baseline;
       border-bottom: 1px solid var(--border-subtle);
-      padding-bottom: 12px;
+      padding-bottom: 10px;
     }
 
     .panel-title {
       font-family: var(--font-display);
-      font-size: 1.45rem;
+      font-size: 1.42rem;
       font-weight: 400;
       color: var(--text-ivory);
     }
 
     .panel-subtitle {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       color: var(--text-muted);
     }
 
     .field-row {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 14px;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
     }
 
     .field {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
     }
 
     .field label {
-      font-size: 0.8rem;
+      font-size: 0.79rem;
       font-weight: 500;
       color: var(--text-muted);
       display: flex;
       justify-content: space-between;
+      align-items: center;
     }
 
     .field label span.val {
@@ -231,72 +223,127 @@
       border-radius: 6px;
       color: var(--text-ivory);
       font-family: var(--font-sans);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       padding: 9px 12px;
       width: 100%;
     }
 
     textarea.lyrics-box {
       font-family: var(--font-telugu);
-      font-size: 1.02rem;
-      line-height: 1.75;
-      min-height: 290px;
+      font-size: 1rem;
+      line-height: 1.7;
+      min-height: 270px;
       resize: vertical;
     }
 
     textarea.style-box {
-      min-height: 82px;
-      font-size: 0.88rem;
-      line-height: 1.5;
+      min-height: 76px;
+      font-size: 0.86rem;
+      line-height: 1.45;
     }
 
     textarea.h3-box {
       font-family: var(--font-mono);
-      font-size: 0.78rem;
-      min-height: 120px;
-      line-height: 1.55;
+      font-size: 0.76rem;
+      min-height: 110px;
+      line-height: 1.5;
       color: var(--text-muted);
     }
 
-    /* Vocal Timbre Preset Chips */
-    .preset-chips {
+    /* Voice Studio Grid & Filter Tabs */
+    .voice-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tab-btn {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      padding: 5px 11px;
+      border-radius: 4px;
+      font-size: 0.76rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      background: rgba(212, 168, 83, 0.16);
+      border-color: var(--brass);
+      color: var(--brass-bright);
+    }
+
+    .voice-cards-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 8px;
+      max-height: 235px;
+      overflow-y: auto;
+      padding-right: 4px;
     }
 
-    .chip {
+    .voice-card {
       background: var(--bg-strip);
       border: 1px solid var(--border-subtle);
       border-radius: 6px;
       padding: 10px 12px;
-      color: var(--text-ivory);
-      font-size: 0.82rem;
       cursor: pointer;
-      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
       transition: border-color 0.15s, background 0.15s;
     }
 
-    .chip:hover {
+    .voice-card:hover {
       border-color: var(--brass);
     }
 
-    .chip.active {
-      background: rgba(212, 168, 83, 0.14);
+    .voice-card.active {
+      background: rgba(212, 168, 83, 0.15);
       border-color: var(--brass);
     }
 
-    .chip strong {
-      display: block;
+    .voice-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .voice-card strong {
+      font-size: 0.82rem;
       color: var(--brass-bright);
-      font-size: 0.85rem;
-      margin-bottom: 2px;
     }
 
-    .chip span {
+    .voice-card-meta {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
+    }
+
+    .voice-card-desc {
+      font-size: 0.73rem;
+      color: var(--text-ivory);
+      opacity: 0.85;
+      line-height: 1.35;
+    }
+
+    .preview-pill {
+      background: var(--bg-input);
+      border: 1px solid var(--border-brass);
+      color: var(--brass);
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 2px 7px;
+      border-radius: 4px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .preview-pill:hover {
+      background: var(--brass);
+      color: #12100E;
     }
 
     input[type="range"] {
@@ -311,24 +358,23 @@
 
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 16px;
-      height: 16px;
+      width: 15px;
+      height: 15px;
       border-radius: 50%;
       background: var(--brass);
       cursor: pointer;
       border: 2px solid var(--bg-desk);
     }
 
-    /* Buttons */
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 11px 18px;
+      padding: 10px 16px;
       border-radius: 6px;
       font-family: var(--font-sans);
-      font-size: 0.9rem;
+      font-size: 0.86rem;
       font-weight: 600;
       cursor: pointer;
       border: 1px solid transparent;
@@ -376,19 +422,17 @@
     .action-stack {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      margin-top: 4px;
+      gap: 10px;
     }
 
-    /* Progress Banner */
     .status-box {
       background: var(--bg-strip);
       border: 1px solid var(--border-brass);
       border-radius: 6px;
-      padding: 14px 16px;
+      padding: 12px 14px;
       display: none;
       flex-direction: column;
-      gap: 8px;
+      gap: 7px;
     }
 
     .status-box.visible {
@@ -412,24 +456,23 @@
 
     .status-msg {
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       color: var(--brass-bright);
     }
 
-    /* Master Player Deck */
     .player-deck {
       background: linear-gradient(180deg, #221D19 0%, #181412 100%);
       border: 1px solid var(--border-brass);
       border-radius: 8px;
-      padding: 18px;
+      padding: 16px;
       display: flex;
       flex-direction: column;
-      gap: 14px;
+      gap: 12px;
     }
 
     .now-playing-title {
       font-family: var(--font-telugu);
-      font-size: 1.15rem;
+      font-size: 1.08rem;
       font-weight: 600;
       color: var(--text-ivory);
     }
@@ -441,13 +484,13 @@
     }
 
     .ab-btn {
-      padding: 8px 10px;
+      padding: 7px 10px;
       border-radius: 5px;
       background: var(--bg-input);
       border: 1px solid var(--border-subtle);
       color: var(--text-muted);
       font-family: var(--font-mono);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
       cursor: pointer;
     }
 
@@ -460,7 +503,7 @@
 
     audio {
       width: 100%;
-      height: 40px;
+      height: 38px;
       border-radius: 6px;
     }
 
@@ -472,8 +515,8 @@
 
     .download-row a {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
-      padding: 7px 12px;
+      font-size: 0.73rem;
+      padding: 6px 11px;
       background: var(--bg-strip);
       border: 1px solid var(--border-subtle);
       border-radius: 5px;
@@ -486,12 +529,11 @@
       color: var(--brass-bright);
     }
 
-    /* Take Library List */
     .take-list {
       display: flex;
       flex-direction: column;
-      gap: 10px;
-      max-height: 360px;
+      gap: 8px;
+      max-height: 280px;
       overflow-y: auto;
     }
 
@@ -499,11 +541,11 @@
       background: var(--bg-strip);
       border: 1px solid var(--border-subtle);
       border-radius: 6px;
-      padding: 12px 14px;
+      padding: 10px 13px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       cursor: pointer;
     }
 
@@ -514,23 +556,24 @@
 
     .take-meta h4 {
       font-family: var(--font-telugu);
-      font-size: 0.92rem;
+      font-size: 0.88rem;
       color: var(--text-ivory);
       margin-bottom: 2px;
     }
 
     .take-meta p {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
     }
 
     details summary {
       cursor: pointer;
-      font-size: 0.83rem;
-      color: var(--text-muted);
+      font-size: 0.82rem;
+      color: var(--brass-bright);
       user-select: none;
       padding: 4px 0;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -538,13 +581,13 @@
 
   <header>
     <div class="brand">
-      <h1>Indic Song Studio</h1>
-      <span class="brand-tag">ACE-Step v1.5 Turbo · SoxR 12yo Vocal Mastering · EBU R128</span>
+      <h1>Indic Song Studio + Voice Studio</h1>
+      <span class="brand-tag">17+ Singer Personas · Custom Voice Cloning · ACE-Step v1.5 · Seed-VC · SoxR</span>
     </div>
-    <div class="console-Readout">
-      <span><i class="status-dot"></i>LOCAL STUDIO ACTIVE</span>
+    <div class="console-readout">
+      <span><i class="status-dot"></i>VOICE & SONG STUDIO ACTIVE</span>
       <span>48 kHz / 24-bit WAV & 320 kbps MP3</span>
-      <span>TARGET: -14.0 LUFS</span>
+      <span>EBU R128 (-14.0 LUFS)</span>
     </div>
   </header>
 
@@ -552,11 +595,11 @@
     <!-- Step 1: Natural Language Song Brief Bar -->
     <section class="brief-bar">
       <div class="brief-input-wrap">
-        <label for="briefInstruction">1. Song Production Brief (Describe the occasion, singer age, language & vibe)</label>
-        <textarea id="briefInstruction" placeholder="e.g., Generate a Telugu devotional song on Lord Ganesha for Ganesh Chaturthi — inviting Lord Ganesha to our house, sung by a 12-year-old kid out of love, with 100% Telugu lyrics, proper devotion, and a festive beat.">Generate a Telugu devotional song on Lord Ganesha for Ganesh Chaturthi — inviting Lord Ganesha to our house, sung by a 12-year-old kid out of love, with 100% Telugu lyrics, proper devotion, and a festive beat.</textarea>
+        <label for="briefInstruction">1. Song Production Brief (Mention ANY singer: e.g., 12yo boy, female playback singer, Carnatic vidwan, 70yo grandfather, 10yo girl, mass folk singer, or choir)</label>
+        <textarea id="briefInstruction" placeholder="Describe the song topic, language, and WHO is singing...">Generate a Telugu devotional song on Lord Ganesha for Ganesh Chaturthi — inviting Lord Ganesha to our house, sung by a 12-year-old kid out of love, with 100% Telugu lyrics, proper devotion, and a festive beat.</textarea>
       </div>
       <button class="btn btn-secondary" id="buildBriefBtn" onclick="buildBriefFromInstruction()">
-        Populate Brief & Lyrics
+        Populate Brief & Auto-Select Singer
       </button>
     </section>
 
@@ -565,7 +608,7 @@
       <section class="panel">
         <div class="panel-header">
           <h2 class="panel-title">2. Lyrics & Musical Architecture</h2>
-          <span class="panel-subtitle">Modify lyrics, tempo, key & instrumentation</span>
+          <span class="panel-subtitle">Edit lyrics, language, tempo & instrumentation</span>
         </div>
 
         <div class="field-row">
@@ -607,20 +650,20 @@
         </div>
 
         <div class="field">
-          <label for="stylePrompt">Style, Vocal Persona & Instrumentation Prompt</label>
+          <label for="stylePrompt">Style, Singer Persona & Instrumentation Prompt</label>
           <textarea id="stylePrompt" class="style-box"></textarea>
         </div>
 
         <div class="field">
           <label for="lyricsInput">
-            <span>Complete Song Lyrics (Native Script with [Intro], [Chorus], [Verse], [Outro])</span>
-            <span class="val">100% Telugu Locked</span>
+            <span>Complete Song Lyrics ([Intro], [Chorus], [Verse], [Outro])</span>
+            <span class="val">Native Script Singing</span>
           </label>
           <textarea id="lyricsInput" class="lyrics-box"></textarea>
         </div>
 
         <details>
-          <summary>MiniMax-H3 Multimodal Video Prompt & Advanced Cloud Settings</summary>
+          <summary>MiniMax-H3 Multimodal Video Prompt & Cloud Engine Settings</summary>
           <div style="display:flex; flex-direction:column; gap:12px; margin-top:10px;">
             <div class="field-row">
               <div class="field">
@@ -644,47 +687,58 @@
         </details>
       </section>
 
-      <!-- Right Column: Vocal Timbre Mastering Console & Player -->
+      <!-- Right Column: Voice Studio Singer Catalog, Mastering Rack & Player -->
       <section class="panel">
         <div class="panel-header">
-          <h2 class="panel-title">3. Vocal Timbre & Studio Mastering Desk</h2>
-          <span class="panel-subtitle">SoxR Varispeed + EBU R128</span>
+          <h2 class="panel-title">3. 🎙️ Voice Studio — Choose Any Singer</h2>
+          <span class="panel-subtitle" id="selectedSingerLabel">Selected: Aarav (12yo Boy)</span>
         </div>
 
-        <div class="field">
-          <label>Vocal Age & Timbre Preset</label>
-          <div class="preset-chips">
-            <button type="button" class="chip active" data-st="1.0" onclick="selectPreset(this, 1.0)">
-              <strong>12-Year-Old Boy Master ★</strong>
-              <span>+1.0 st · 1.0595x SoxR Varispeed</span>
-            </button>
-            <button type="button" class="chip" data-st="1.5" onclick="selectPreset(this, 1.5)">
-              <strong>Young Child Vocal</strong>
-              <span>+1.5 st · 1.0905x SoxR Varispeed</span>
-            </button>
-            <button type="button" class="chip" data-st="0.5" onclick="selectPreset(this, 0.5)">
-              <strong>Teen Devotional Vocal</strong>
-              <span>+0.5 st · 1.0293x SoxR Varispeed</span>
-            </button>
-            <button type="button" class="chip" data-st="0.0" onclick="selectPreset(this, 0.0)">
-              <strong>Original Studio Pitch</strong>
-              <span>0.0 st · 1.0000x Unshifted D Major</span>
-            </button>
+        <!-- Category Filter Tabs -->
+        <div class="voice-tabs">
+          <button type="button" class="tab-btn active" onclick="filterVoices('ALL', this)">All Voices (17+)</button>
+          <button type="button" class="tab-btn" onclick="filterVoices('Children & Youth', this)">Kids & Teens</button>
+          <button type="button" class="tab-btn" onclick="filterVoices('Female Singers', this)">Female Singers</button>
+          <button type="button" class="tab-btn" onclick="filterVoices('Male Singers', this)">Male Singers</button>
+          <button type="button" class="tab-btn" onclick="filterVoices('Elders & Ensemble', this)">Elders & Choir</button>
+          <button type="button" class="tab-btn" onclick="filterVoices('Custom Cloned Voices', this)">Custom Clones</button>
+        </div>
+
+        <!-- Singer Cards Grid -->
+        <div class="voice-cards-grid" id="voiceCardsGrid"></div>
+
+        <!-- Hidden Voice Preview Player -->
+        <audio id="voicePreviewAudio" style="display:none;"></audio>
+
+        <!-- Custom Voice Cloning Uploader -->
+        <details>
+          <summary>➕ Clone a Custom Singer Voice (Upload .wav or .mp3 reference sample)</summary>
+          <div class="field-row" style="margin-top:8px; align-items:end;">
+            <div class="field">
+              <label for="customVoiceName">Singer Name</label>
+              <input type="text" id="customVoiceName" placeholder="e.g., My Voice / Singer X" />
+            </div>
+            <div class="field">
+              <label for="customVoiceFile">Voice Audio (.wav / .mp3)</label>
+              <input type="file" id="customVoiceFile" accept="audio/*" style="font-size:0.78rem; color:var(--text-muted);" />
+            </div>
+            <button type="button" class="btn btn-secondary" onclick="uploadCustomVoice()">Clone & Add Singer</button>
           </div>
-        </div>
+        </details>
 
+        <!-- Fine Timbre & EQ Sliders -->
         <div class="field">
           <label for="semitoneSlider">
-            <span>Fine Vocal Pitch / Formant Varispeed (Semitones)</span>
+            <span>Vocal Pitch / Formant Shift (Semitones)</span>
             <span class="val" id="semitoneVal">+1.0 st (1.059x)</span>
           </label>
-          <input type="range" id="semitoneSlider" min="-3.0" max="3.0" step="0.1" value="1.0" oninput="updateSliders()" />
+          <input type="range" id="semitoneSlider" min="-3.5" max="3.5" step="0.1" value="1.0" oninput="updateSliders()" />
         </div>
 
         <div class="field-row">
           <div class="field">
             <label for="bassSlider">
-              <span>Dholak/Mridangam (95Hz)</span>
+              <span>Percussion Warmth (95Hz)</span>
               <span class="val" id="bassVal">+2.0 dB</span>
             </label>
             <input type="range" id="bassSlider" min="-3.0" max="6.0" step="0.5" value="2.0" oninput="updateSliders()" />
@@ -698,19 +752,24 @@
           </div>
           <div class="field">
             <label for="airSlider">
-              <span>Bell Shimmer (10.5kHz)</span>
+              <span>Top Air Shimmer (10.5kHz)</span>
               <span class="val" id="airVal">+2.0 dB</span>
             </label>
             <input type="range" id="airSlider" min="-2.0" max="6.0" step="0.5" value="2.0" oninput="updateSliders()" />
           </div>
         </div>
 
+        <div style="display:flex; align-items:center; gap:10px; font-size:0.8rem; color:var(--text-muted);">
+          <input type="checkbox" id="useSeedVcCheck" />
+          <label for="useSeedVcCheck">Also run Cloud Zero-Shot Singing Voice Conversion (Seed-VC F0-conditioned)</label>
+        </div>
+
         <div class="action-stack">
           <button class="btn btn-brass" id="remasterBtn" onclick="runInstantRemaster()">
-            ⚡ Instant Vocal Remaster (2s)
+            ⚡ Sing Current Song in Selected Voice
           </button>
           <button class="btn btn-kumkum" id="generateBtn" onclick="runFullCloudGeneration()">
-            🎵 Generate New AI Song Take
+            🎵 Generate New AI Song With Singer
           </button>
         </div>
 
@@ -723,17 +782,17 @@
 
         <!-- Active Studio Master Player -->
         <div class="player-deck">
-          <div style="display:flex; justify-content:space-between; align-items:center;">
-            <div class="now-playing-title" id="nowPlayingTitle">రావయ్య గణపయ్యా మా ఇంటికి (12yo Boy Master)</div>
+          <div style="display:flex; justify-content:space-between; align-items:center; gap:8px;">
+            <div class="now-playing-title" id="nowPlayingTitle">రావయ్య గణపయ్యా మా ఇంటికి</div>
             <span class="brand-tag" id="activeTakeBadge">ACTIVE MASTER</span>
           </div>
 
           <div class="ab-switch">
             <button type="button" class="ab-btn active" id="abBtnPrimary" onclick="switchAB('primary')">
-              A: 12yo Vocal Master (320k MP3)
+              A: Selected Singer Master (320k MP3)
             </button>
             <button type="button" class="ab-btn" id="abBtnOriginal" onclick="switchAB('original')">
-              B: Original Pitch Master (D Maj)
+              B: Unshifted Studio Master (D Maj)
             </button>
           </div>
 
@@ -744,7 +803,7 @@
 
         <!-- Take History -->
         <div class="field">
-          <label>Session Take Library (Click any take to audition or remaster)</label>
+          <label>Session Take Library (Click any take to audition or switch its singer)</label>
           <div class="take-list" id="takeList"></div>
         </div>
       </section>
@@ -753,6 +812,9 @@
 
   <script>
     let libraryTakes = [];
+    let allVoices = [];
+    let activeCategory = 'ALL';
+    let selectedVoiceId = '12yo_boy';
     let currentTake = null;
     let currentABMode = 'primary';
 
@@ -771,11 +833,110 @@
       document.getElementById('airVal').textContent = `${air >= 0 ? '+' : ''}${air.toFixed(1)} dB`;
     }
 
-    function selectPreset(btn, semitones) {
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      btn.classList.add('active');
-      document.getElementById('semitoneSlider').value = semitones;
-      updateSliders();
+    function filterVoices(category, btn) {
+      activeCategory = category;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      renderVoiceCards();
+    }
+
+    function selectVoicePersona(voiceId) {
+      selectedVoiceId = voiceId;
+      const v = allVoices.find(x => x.id === voiceId);
+      if (v) {
+        document.getElementById('selectedSingerLabel').textContent = `Selected: ${v.name}`;
+        document.getElementById('semitoneSlider').value = v.semitones;
+        document.getElementById('bassSlider').value = v.bass_db;
+        document.getElementById('presenceSlider').value = v.presence_3k_db;
+        document.getElementById('airSlider').value = v.air_10k_db;
+        updateSliders();
+
+        // Update vocal persona tag inside stylePrompt if present
+        const styleEl = document.getElementById('stylePrompt');
+        if (styleEl.value && v.acestep_vocal_tag) {
+          styleEl.value = `Indian devotional/film studio song, ${v.acestep_vocal_tag}, upbeat festive South Indian dholak and mridangam percussion groove, manjira hand cymbals, temple bells, bansuri bamboo flute, sitar and veena melody, studio-polished, ${document.getElementById('bpmInput').value || 108} BPM, ${document.getElementById('keyInput').value || 'D major'}`;
+        }
+      }
+      renderVoiceCards();
+    }
+
+    async function previewVoiceSample(ev, voiceId) {
+      ev.stopPropagation();
+      const btn = ev.currentTarget;
+      const oldText = btn.textContent;
+      btn.textContent = '⏳...';
+      try {
+        const lang = document.getElementById('vocalLang').value || 'te';
+        const res = await fetch('/api/voice-preview', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ voice_id: voiceId, lang })
+        });
+        const data = await res.json();
+        if (data.status === 'ok' && data.audio_url) {
+          const aud = document.getElementById('voicePreviewAudio');
+          aud.src = data.audio_url + '?t=' + Date.now();
+          aud.play().catch(() => {});
+          btn.textContent = '🔊 Playing';
+          aud.onended = () => { btn.textContent = oldText; };
+        } else {
+          btn.textContent = oldText;
+        }
+      } catch (e) {
+        btn.textContent = oldText;
+      }
+    }
+
+    function renderVoiceCards() {
+      const grid = document.getElementById('voiceCardsGrid');
+      const filtered = activeCategory === 'ALL'
+        ? allVoices
+        : allVoices.filter(v => v.category === activeCategory);
+
+      grid.innerHTML = filtered.map(v => `
+        <div class="voice-card ${v.id === selectedVoiceId ? 'active' : ''}" onclick="selectVoicePersona('${v.id}')">
+          <div class="voice-card-top">
+            <strong>${v.name}</strong>
+            <button type="button" class="preview-pill" onclick="previewVoiceSample(event, '${v.id}')">🔊 Preview</button>
+          </div>
+          <div class="voice-card-meta">${v.category} · ${v.semitones >= 0 ? '+' : ''}${Number(v.semitones).toFixed(1)} st · ${v.mode === 'rubberband_formant' ? 'Formant-Sculpt' : (v.mode === 'choir_ensemble' ? 'Multi-Voice Choir' : 'SoxR Varispeed')}</div>
+          <div class="voice-card-desc">${v.description}</div>
+        </div>
+      `).join('');
+    }
+
+    async function uploadCustomVoice() {
+      const nameInput = document.getElementById('customVoiceName');
+      const fileInput = document.getElementById('customVoiceFile');
+      if (!fileInput.files || !fileInput.files[0]) {
+        alert('Please choose a .wav or .mp3 voice sample first.');
+        return;
+      }
+      const file = fileInput.files[0];
+      const voiceName = nameInput.value.trim() || file.name.replace(/\.[^.]+$/, '');
+      showStatus(`Analyzing custom voice "${voiceName}" (extracting F0 pitch & formants)...`, 0.4);
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        const res = await fetch('/api/voice-upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            filename: file.name,
+            voice_name: voiceName,
+            audio_base64: reader.result
+          })
+        });
+        const data = await res.json();
+        if (data.status === 'ok' && data.voice) {
+          allVoices = data.voices || allVoices;
+          selectVoicePersona(data.voice.id);
+          showStatus(`Custom singer "${data.voice.name}" registered & selected!`, 1.0);
+        } else {
+          showStatus(`Upload error: ${data.error}`, 1.0);
+        }
+      };
+      reader.readAsDataURL(file);
     }
 
     function populateFieldsFromTake(take) {
@@ -789,10 +950,14 @@
       if (take.style_prompt) document.getElementById('stylePrompt').value = take.style_prompt;
       if (take.lyrics) document.getElementById('lyricsInput').value = take.lyrics;
       if (take.h3_prompt) document.getElementById('h3Prompt').value = take.h3_prompt;
+      if (take.voice_id) {
+        selectedVoiceId = take.voice_id;
+      }
       if (typeof take.semitone_shift === 'number') {
         document.getElementById('semitoneSlider').value = take.semitone_shift;
         updateSliders();
       }
+      renderVoiceCards();
     }
 
     function selectTake(index, autoPlay = false) {
@@ -804,7 +969,7 @@
       });
 
       document.getElementById('nowPlayingTitle').textContent = currentTake.title;
-      document.getElementById('activeTakeBadge').textContent = `${currentTake.semitone_shift >= 0 ? '+' : ''}${Number(currentTake.semitone_shift).toFixed(1)} st · -14 LUFS`;
+      document.getElementById('activeTakeBadge').textContent = `${currentTake.voice_name ? currentTake.voice_name.split('(')[0].trim() : 'Master'} · ${currentTake.semitone_shift >= 0 ? '+' : ''}${Number(currentTake.semitone_shift).toFixed(1)} st`;
 
       updatePlayerSource(autoPlay);
       renderDownloadLinks(currentTake);
@@ -841,7 +1006,7 @@
         return;
       }
       wrap.innerHTML = `
-        <a href="${take.files.primary_mp3}" download>⬇ 12yo Master MP3 (320k)</a>
+        <a href="${take.files.primary_mp3}" download>⬇ Singer Master MP3 (320k)</a>
         <a href="${take.files.original_pitch_mp3}" download>⬇ Original Pitch MP3</a>
         <a href="${take.files.wav_master}" download>⬇ Lossless 24-bit WAV</a>
         <a href="${take.files.brief_md}" target="_blank">📄 Production Brief (.md)</a>
@@ -854,7 +1019,7 @@
         <div class="take-item ${currentTake && currentTake.id === t.id ? 'active' : ''}" onclick="selectTake(${i}, true)">
           <div class="take-meta">
             <h4>${t.title}</h4>
-            <p>${t.created_at} · ${t.vocal_language.toUpperCase()} · ${t.bpm} BPM · ${t.semitone_shift >= 0 ? '+' : ''}${Number(t.semitone_shift).toFixed(1)} st</p>
+            <p>${t.created_at} · ${t.voice_name ? t.voice_name.split('(')[0].trim() : t.vocal_preset} · ${t.semitone_shift >= 0 ? '+' : ''}${Number(t.semitone_shift).toFixed(1)} st</p>
           </div>
           <span class="brand-tag">▶ Play</span>
         </div>
@@ -865,6 +1030,8 @@
       const res = await fetch('/api/library');
       const data = await res.json();
       libraryTakes = data.takes || [];
+      allVoices = data.voices || [];
+      renderVoiceCards();
       if (libraryTakes.length > 0) {
         populateFieldsFromTake(libraryTakes[0]);
         selectTake(0, false);
@@ -884,6 +1051,10 @@
       const data = await res.json();
       if (data.brief) {
         populateFieldsFromTake(data.brief);
+        if (data.brief.voice_id) {
+          selectVoicePersona(data.brief.voice_id);
+        }
+        showStatus(`Auto-detected singer persona from brief: ${data.voice ? data.voice.name : data.brief.voice_id}`, 1.0);
       }
     }
 
@@ -898,12 +1069,16 @@
       const btn = document.getElementById('remasterBtn');
       btn.disabled = true;
       const st = parseFloat(document.getElementById('semitoneSlider').value);
-      showStatus(`Running FFmpeg SoxR varispeed (${st >= 0 ? '+' : ''}${st.toFixed(1)} st) + EBU R128 (-14 LUFS) remaster...`, 0.45);
+      const v = allVoices.find(x => x.id === selectedVoiceId);
+      const vName = v ? v.name : selectedVoiceId;
+      const useSeedVc = document.getElementById('useSeedVcCheck').checked;
+      showStatus(`Voice Studio: transforming song into "${vName}" (${st >= 0 ? '+' : ''}${st.toFixed(1)} st)...`, 0.45);
 
       try {
         const payload = {
           slug: currentTake ? currentTake.slug : 'Raavayya_Ganapayya_Reference',
-          title: `${document.getElementById('songTitle').value.split('(')[0].trim()} (${st >= 0 ? '+' : ''}${st.toFixed(1)}st Master)`,
+          voice_id: selectedVoiceId,
+          title: document.getElementById('songTitle').value,
           brief_text: document.getElementById('briefInstruction').value,
           vocal_language: document.getElementById('vocalLang').value,
           bpm: parseInt(document.getElementById('bpmInput').value, 10) || 108,
@@ -915,6 +1090,7 @@
           bass_db: parseFloat(document.getElementById('bassSlider').value),
           presence_db: parseFloat(document.getElementById('presenceSlider').value),
           air_db: parseFloat(document.getElementById('airSlider').value),
+          use_seedvc: useSeedVc,
           target_lufs: -14.0
         };
 
@@ -925,7 +1101,7 @@
         });
         const data = await res.json();
         if (data.status === 'done' && data.take) {
-          showStatus('Instant SoxR Vocal Timbre Remaster complete! Playing now.', 1.0);
+          showStatus(`Voice Studio Master complete! Now singing as: ${vName}`, 1.0);
           libraryTakes.unshift(data.take);
           currentABMode = 'primary';
           document.getElementById('abBtnPrimary').classList.add('active');
@@ -933,10 +1109,10 @@
           renderTakeList();
           selectTake(0, true);
         } else {
-          showStatus(`Remaster error: ${data.error || 'Unknown error'}`, 1.0);
+          showStatus(`Error: ${data.error || 'Unknown error'}`, 1.0);
         }
       } catch (err) {
-        showStatus(`Remaster failed: ${err.message}`, 1.0);
+        showStatus(`Transform failed: ${err.message}`, 1.0);
       } finally {
         btn.disabled = false;
       }
@@ -945,7 +1121,9 @@
     async function runFullCloudGeneration() {
       const genBtn = document.getElementById('generateBtn');
       genBtn.disabled = true;
-      showStatus('Submitting song brief & native lyrics to ACE-Step v1.5 Turbo...', 0.05);
+      const v = allVoices.find(x => x.id === selectedVoiceId);
+      const vName = v ? v.name : selectedVoiceId;
+      showStatus(`Submitting song brief + Voice Studio reference (${vName}) to ACE-Step v1.5 Turbo...`, 0.05);
 
       try {
         const payload = {
@@ -956,12 +1134,15 @@
           key_scale: document.getElementById('keyInput').value,
           duration: parseInt(document.getElementById('durationInput').value, 10) || 60,
           seed: document.getElementById('seedInput').value,
+          voice_id: selectedVoiceId,
           style_prompt: document.getElementById('stylePrompt').value,
           lyrics: document.getElementById('lyricsInput').value,
           h3_prompt: document.getElementById('h3Prompt').value,
           inference_steps: parseInt(document.getElementById('stepsInput').value, 10) || 8,
           guidance_scale: parseFloat(document.getElementById('guidanceInput').value) || 7.0,
           semitone_shift: parseFloat(document.getElementById('semitoneSlider').value),
+          use_voice_ref: true,
+          use_seedvc: document.getElementById('useSeedVcCheck').checked,
           hf_token: document.getElementById('hfToken').value
         };
 

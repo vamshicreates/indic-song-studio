@@ -1,67 +1,74 @@
 ---
 name: indic-song-studio
-description: >-
-  Generate and master studio-grade (90+/100) Telugu, Indic, and multilingual devotional or film songs
-  using ACE-Step v1.5 Turbo native vocal diffusion (`vocal_language='te'`) and FFmpeg SoxR varispeed
-  vocal timbre sculpting (including the 12-Year-Old Boy Vocal Master at +1.0 semitone / 1.0595x and
-  EBU R128 -14 LUFS mastering). Includes a locally hosted web studio (`http://127.0.0.1:7865`) and CLI wrapper.
+description: Generate, iterate, and master broadcast-grade 90+/100 Indian and multilingual songs with an integrated Voice Studio (17+ singer personas across children, female/male playback, Carnatic classical, Janapada folk, Sufi, elders, choir, plus custom voice cloning) using ACE-Step v1.5 Turbo, Seed-VC zero-shot singing voice conversion, FFmpeg Rubberband/SoxR formant-pitch mastering, and a local Web Studio UI.
 ---
 
-# Indic Song Studio (`indic-song-studio`)
+# Indic Song Studio + Voice Studio (`indic-song-studio`)
 
-Use this skill whenever the user asks to generate, remix, or master a **Telugu, Hindi, Tamil, Sanskrit, or Indic devotional/film song**, adjust vocal age/timbre (e.g., **12-year-old boy/child voice**), write a structured **Song Production Brief**, or launch the local **Indic Song Studio** web app.
-
-## Golden Rules (Why This Reaches 90+/100 Quality)
-
-1. **Never use local TTS + PSOLA pitch-shifting for singing.** TTS (`edge-tts` + Praat PSOLA) sounds robotic (~10/100). Always use real end-to-end singing diffusion (`ACE-Step v1.5 Turbo` with native `vocal_language='te'` / `'hi'` / `'ta'` / `'sa'`).
-2. **Never use `atempo` time-stretching when sculpting child/12-year-old vocal timbre.** Instead, apply **pure SoxR varispeed resampling** (`asetrate=48000*1.059463,aresample=48000:resampler=soxr`) for `+1.0 semitone` (`12-Year-Old Boy Master`). This shifts both pitch and vocal tract formants together with **zero** phase or percussion transient flutter.
-3. **Always master to EBU R128 (`-14.0 LUFS`, `-1.0 dBTP`) at 48 kHz / 320 kbps MP3 & 24-bit WAV** with warm Indian percussion enhancement (`95 Hz +2.0 dB`), vocal presence (`3.2 kHz +1.5 dB`), and temple bell air (`10.5 kHz +2.0 dB`).
+Use this skill whenever the user wants to:
+1. **Generate a studio-grade song** in **Telugu, Hindi, Tamil, Kannada, Malayalam, Sanskrit, Bengali, Marathi, Punjabi, or English** from a natural-language brief.
+2. **Have any singer persona sing the song** — whether the user specifies a *12-year-old boy*, *10-year-old girl*, *6-year-old child*, *Female Playback Singer (Shreya/Chitra style)*, *Male Playback Singer (Sid Sriram/Arijit style)*, *Carnatic Vidushi/Vidwan*, *Telugu Janapada Mass Folk singer*, *Sufi Qawwali singer*, *Grandfather/Grandmother elder*, *Temple Choir*, or uploads a **custom `.wav`/`.mp3` voice sample** for voice cloning.
+3. **Launch a local interactive Web App + Voice Studio** (`http://127.0.0.1:7865`) where the user can type a natural-language brief, audition 17+ singer voices, upload a custom reference voice, tweak lyrics/BPM/key/style tags, and re-master or convert any take into any singer's voice in seconds.
 
 ---
 
-## 1. Launching the Locally Hosted Web App
+## Architecture & Pipeline
 
-To start the interactive **Indic Song Studio** web console on `http://127.0.0.1:7865`:
+1. **Natural-Language Brief & Singer Persona Parser (`song_engine.py` + `voice_studio.py`)**
+   - Automatically detects language (`te`, `hi`, `ta`, `kn`, `ml`, `sa`, `en`, etc.), tempo (BPM), musical scale/raga, duration, and **who is singing** directly from the user's text brief (`detect_voice_from_brief`).
+   - Built-in **17+ Singer Personas** across 4 categories:
+     - **Children & Youth:** `12yo_boy`, `10yo_girl`, `6yo_child`, `16yo_teen_boy`, `16yo_teen_girl`
+     - **Female Singers:** `female_playback`, `female_carnatic`, `female_folk`, `female_indie`
+     - **Male Singers:** `male_playback`, `male_carnatic`, `male_mass_folk`, `male_sufi`, `male_baritone`
+     - **Elders & Ensemble:** `elder_grandfather`, `elder_grandmother`, `temple_choir`
+     - **Custom Cloned Voices:** `custom_<id>` registered from any `.wav`/`.mp3`/`.m4a` uploaded by the user.
 
+2. **Reference Voice Conditioning & Audition (`voice_studio.py`)**
+   - Synthesizes clean, native-script reference vocal phrases via `edge-tts` (`ensure_voice_reference_audio`) or uses the user's uploaded audio clip.
+   - Feeds the reference vocal clip (`param_10` / `reference_audio`) + persona-specific vocal tags into **ACE-Step v1.5 Turbo (`acestep-v15-turbo`)** so the diffusion model shapes the singing timbre, phrasing, and register around the chosen singer from the very first pass.
+
+3. **Studio Vocal Tract Mastering & Zero-Shot Singing Voice Conversion (`voice_studio.py`)**
+   - **Local Studio Vocal Tract Engine (< 3 seconds):** Uses FFmpeg `librubberband` formant-aware pitch shifting (`rubberband=pitch=...:formant=shifted`), `libsoxr` varispeed resampling, stereo `chorus` ensemble doubling (for choir), 4-band persona-specific vocal EQ, dynamic compression, stereo mud removal, and **EBU R128 loudness normalization (`-14 LUFS`, `-1.0 dBTP`)**.
+   - **Cloud Zero-Shot Singing Voice Conversion (`use_seedvc=True`):** Calls `Seed-VC` (`mmwmm/Seed-VC` / `Uniaff/Seed-VC`) with `f0_condition=True` (singing mode) and pitch-preserving synthesis to clone any reference or uploaded voice onto the generated song melody before final EBU R128 mastering.
+
+---
+
+## Quick Start Commands
+
+### 1. Launch the Local Web App (`http://127.0.0.1:7865`)
 ```bash
-./start.sh
-# Or directly with Python:
-python3 server.py
+/Users/rachanalekkala/Documents/VamshiCreates/AntiGravity/VamshiCreates/indic-song-studio/start.sh
 ```
 
-### Web Studio Capabilities
-- **1-Sentence Brief Builder**: Enter a natural language prompt (e.g., *"Ganesh Chaturthi song inviting Lord Ganesha to our house, sung by a 12-year-old kid out of love in Telugu"*) and click **Populate Brief & Lyrics**.
-- **⚡ Instant Vocal Remaster (2s Local SoxR)**: Modify the vocal age/timbre (`+1.0 st` 12yo Boy Master, `+1.5 st` Young Child, `+0.5 st` Teen, `0.0 st` Original Pitch, or custom `-3.0` to `+3.0 st`) and 3-band EQ in **2 seconds locally** without waiting for cloud diffusion.
-- **🎵 Generate New AI Song Take**: Submits the native-script lyrics and style prompt to `ACE-Step v1.5 Turbo` (`OnyxMunk/Ace-Step-Munk` CPU-basic non-ZeroGPU fallback + `ACE-Step/Ace-Step-v1.5` ZeroGPU) and automatically runs the SoxR + EBU R128 mastering chain.
-- **A/B Master Switcher & Library**: Compare the **12yo Vocal Master** against the **Original Pitch Master** in real time and download 320 kbps MP3, 24-bit WAV, and the Production Brief Markdown.
-
----
-
-## 2. Running From the Command Line (CLI Wrapper)
-
+### 2. List All Available Singer Voices via CLI
 ```bash
-# Generate with the default Ganesh Chaturthi 12yo Boy Telugu Brief:
-python3 song_engine.py --brief "Telugu song on Lord Ganesha for Ganesh Chaturthi sung by a 12-year-old kid" --lang te --semitones 1.0
-
-# Custom lyrics file & tempo:
-python3 song_engine.py \
-  --title "Raavayya Ganapayya" \
-  --lang te \
-  --bpm 108 \
-  --key "D major" \
-  --semitones 1.0 \
-  --lyrics-file my_lyrics.txt
+/Users/rachanalekkala/Documents/VamshiCreates/AntiGravity/VamshiCreates/MiniMax-H3/.venv/bin/python \
+  /Users/rachanalekkala/Documents/VamshiCreates/AntiGravity/VamshiCreates/indic-song-studio/cli.py \
+  --list-voices
 ```
 
----
-
-## 3. Standalone FFmpeg SoxR 12-Year-Old Vocal Mastering Command
-
-If you already have a raw AI song take (`raw_take.mp3`) and want to produce the **12-Year-Old Boy Vocal Master (`+1.0 st` SoxR Varispeed)**:
-
+### 3. Generate a Song from a Text Brief (Auto-Detects Singer from Brief or `--voice`)
 ```bash
-ffmpeg -y -i raw_take.mp3 \
-  -af "asetrate=48000*1.059463,aresample=48000:resampler=soxr,highpass=f=30,equalizer=f=95:t=q:w=1.2:g=2.0,equalizer=f=3200:t=q:w=1.0:g=1.5,highshelf=f=10500:g=2.0,loudnorm=I=-14:TP=-1.0:LRA=9" \
-  -ar 48000 -ac 2 -b:a 320k \
-  Master_12yo_Boy_Edition.mp3
+/Users/rachanalekkala/Documents/VamshiCreates/AntiGravity/VamshiCreates/MiniMax-H3/.venv/bin/python \
+  /Users/rachanalekkala/Documents/VamshiCreates/AntiGravity/VamshiCreates/indic-song-studio/cli.py \
+  --brief "Generate a Telugu Ganesh Chaturthi song sung by a melodious female playback singer inviting Lord Ganesha home with Nadaswaram and Dholak" \
+  --duration 95
+```
+
+### 4. Switch / Remaster an Existing Song into Any Singer's Voice Instantly
+```bash
+/Users/rachanalekkala/Documents/VamshiCreates/AntiGravity/VamshiCreates/MiniMax-H3/.venv/bin/python \
+  /Users/rachanalekkala/Documents/VamshiCreates/AntiGravity/VamshiCreates/indic-song-studio/cli.py \
+  --remaster "/Users/rachanalekkala/Documents/VamshiCreates/AntiGravity/VamshiCreates/indic-song-studio/outputs/Raavayya_Ganapayya_Original_Pitch_Master.mp3" \
+  --voice "female_playback"
+```
+
+### 5. Clone a Custom Voice onto a Song
+```bash
+/Users/rachanalekkala/Documents/VamshiCreates/AntiGravity/VamshiCreates/MiniMax-H3/.venv/bin/python \
+  /Users/rachanalekkala/Documents/VamshiCreates/AntiGravity/VamshiCreates/indic-song-studio/cli.py \
+  --remaster "/path/to/song.mp3" \
+  --custom-voice-file "/path/to/my_singer_sample.wav" \
+  --custom-voice-name "My Custom Singer" \
+  --use-seedvc
 ```
