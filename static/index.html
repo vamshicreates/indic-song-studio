@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Indic Song Studio — AI Devotional & Film Music Mastering Console</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Noto+Serif+Telugu:wght@400;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-desk: #12100E;
+      --bg-panel: #1B1714;
+      --bg-strip: #241F1B;
+      --bg-input: #151210;
+      --border-subtle: #312A24;
+      --border-brass: rgba(212, 168, 83, 0.42);
+      --brass: #D4A853;
+      --brass-bright: #E8C06B;
+      --kumkum: #E0533C;
+      --text-ivory: #F4EFE6;
+      --text-muted: #A49788;
+      --text-dim: #73685C;
+      --emerald: #4CAF7D;
+      --font-display: 'Instrument Serif', 'Noto Serif Telugu', Georgia, serif;
+      --font-telugu: 'Noto Serif Telugu', 'Plus Jakarta Sans', serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-desk);
+      color: var(--text-ivory);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      min-height: 100vh;
+      padding-bottom: 48px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border-subtle);
+      background: linear-gradient(180deg, #1A1613 0%, #12100E 100%);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: baseline;
+      gap: 14px;
+    }
+
+    .brand h1 {
+      font-family: var(--font-display);
+      font-weight: 400;
+      font-size: 2rem;
+      letter-spacing: 0.01em;
+      color: var(--text-ivory);
+    }
+
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--brass);
+      background: rgba(212, 168, 83, 0.1);
+      border: 1px solid var(--border-brass);
+      padding: 3px 10px;
+      border-radius: 4px;
+    }
+
+    .console-Readout {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--emerald);
+      margin-right: 6px;
+      box-shadow: 0 0 8px var(--emerald);
+    }
+
+    .container {
+      max-width: 1380px;
+      margin: 0 auto;
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Natural Language Brief Banner */
+    .brief-bar {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-left: 3px solid var(--brass);
+      border-radius: 8px;
+      padding: 20px 24px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items: end;
+    }
+
+    .brief-bar label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--brass-bright);
+      margin-bottom: 8px;
+    }
+
+    .brief-input-wrap textarea {
+      width: 100%;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      color: var(--text-ivory);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      padding: 12px 14px;
+      resize: vertical;
+      min-height: 64px;
+    }
+
+    .brief-input-wrap textarea:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--brass);
+    }
+
+    /* Main 2-Column Studio Grid */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+      .studio-grid {
+        grid-template-columns: 1fr;
+      }
+      .brief-bar {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 12px;
+    }
+
+    .panel-title {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 400;
+      color: var(--text-ivory);
+    }
+
+    .panel-subtitle {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 14px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field label {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .field label span.val {
+      font-family: var(--font-mono);
+      color: var(--brass);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="password"],
+    select,
+    textarea {
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      color: var(--text-ivory);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      padding: 9px 12px;
+      width: 100%;
+    }
+
+    textarea.lyrics-box {
+      font-family: var(--font-telugu);
+      font-size: 1.02rem;
+      line-height: 1.75;
+      min-height: 290px;
+      resize: vertical;
+    }
+
+    textarea.style-box {
+      min-height: 82px;
+      font-size: 0.88rem;
+      line-height: 1.5;
+    }
+
+    textarea.h3-box {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      min-height: 120px;
+      line-height: 1.55;
+      color: var(--text-muted);
+    }
+
+    /* Vocal Timbre Preset Chips */
+    .preset-chips {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .chip {
+      background: var(--bg-strip);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 10px 12px;
+      color: var(--text-ivory);
+      font-size: 0.82rem;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .chip:hover {
+      border-color: var(--brass);
+    }
+
+    .chip.active {
+      background: rgba(212, 168, 83, 0.14);
+      border-color: var(--brass);
+    }
+
+    .chip strong {
+      display: block;
+      color: var(--brass-bright);
+      font-size: 0.85rem;
+      margin-bottom: 2px;
+    }
+
+    .chip span {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 6px;
+      background: var(--bg-strip);
+      border-radius: 4px;
+      border: 1px solid var(--border-subtle);
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--brass);
+      cursor: pointer;
+      border: 2px solid var(--bg-desk);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 18px;
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: transform 0.1s, opacity 0.15s, background 0.15s;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn:disabled {
+      opacity: 0.55;
+      cursor: not-allowed;
+    }
+
+    .btn-brass {
+      background: var(--brass);
+      color: #12100E;
+    }
+
+    .btn-brass:hover:not(:disabled) {
+      background: var(--brass-bright);
+    }
+
+    .btn-kumkum {
+      background: var(--kumkum);
+      color: #FFF;
+    }
+
+    .btn-kumkum:hover:not(:disabled) {
+      background: #EB6049;
+    }
+
+    .btn-secondary {
+      background: var(--bg-strip);
+      color: var(--text-ivory);
+      border-color: var(--border-subtle);
+    }
+
+    .btn-secondary:hover:not(:disabled) {
+      border-color: var(--brass);
+    }
+
+    .action-stack {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 4px;
+    }
+
+    /* Progress Banner */
+    .status-box {
+      background: var(--bg-strip);
+      border: 1px solid var(--border-brass);
+      border-radius: 6px;
+      padding: 14px 16px;
+      display: none;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .status-box.visible {
+      display: flex;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 6px;
+      background: var(--bg-input);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--brass), var(--kumkum));
+      width: 5%;
+      transition: width 0.3s ease;
+    }
+
+    .status-msg {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--brass-bright);
+    }
+
+    /* Master Player Deck */
+    .player-deck {
+      background: linear-gradient(180deg, #221D19 0%, #181412 100%);
+      border: 1px solid var(--border-brass);
+      border-radius: 8px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .now-playing-title {
+      font-family: var(--font-telugu);
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-ivory);
+    }
+
+    .ab-switch {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .ab-btn {
+      padding: 8px 10px;
+      border-radius: 5px;
+      background: var(--bg-input);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      cursor: pointer;
+    }
+
+    .ab-btn.active {
+      background: rgba(212, 168, 83, 0.18);
+      border-color: var(--brass);
+      color: var(--brass-bright);
+      font-weight: 600;
+    }
+
+    audio {
+      width: 100%;
+      height: 40px;
+      border-radius: 6px;
+    }
+
+    .download-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .download-row a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 7px 12px;
+      background: var(--bg-strip);
+      border: 1px solid var(--border-subtle);
+      border-radius: 5px;
+      color: var(--text-ivory);
+      text-decoration: none;
+    }
+
+    .download-row a:hover {
+      border-color: var(--brass);
+      color: var(--brass-bright);
+    }
+
+    /* Take Library List */
+    .take-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-height: 360px;
+      overflow-y: auto;
+    }
+
+    .take-item {
+      background: var(--bg-strip);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      padding: 12px 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .take-item:hover,
+    .take-item.active {
+      border-color: var(--brass);
+    }
+
+    .take-meta h4 {
+      font-family: var(--font-telugu);
+      font-size: 0.92rem;
+      color: var(--text-ivory);
+      margin-bottom: 2px;
+    }
+
+    .take-meta p {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    details summary {
+      cursor: pointer;
+      font-size: 0.83rem;
+      color: var(--text-muted);
+      user-select: none;
+      padding: 4px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <h1>Indic Song Studio</h1>
+      <span class="brand-tag">ACE-Step v1.5 Turbo · SoxR 12yo Vocal Mastering · EBU R128</span>
+    </div>
+    <div class="console-Readout">
+      <span><i class="status-dot"></i>LOCAL STUDIO ACTIVE</span>
+      <span>48 kHz / 24-bit WAV & 320 kbps MP3</span>
+      <span>TARGET: -14.0 LUFS</span>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Step 1: Natural Language Song Brief Bar -->
+    <section class="brief-bar">
+      <div class="brief-input-wrap">
+        <label for="briefInstruction">1. Song Production Brief (Describe the occasion, singer age, language & vibe)</label>
+        <textarea id="briefInstruction" placeholder="e.g., Generate a Telugu devotional song on Lord Ganesha for Ganesh Chaturthi — inviting Lord Ganesha to our house, sung by a 12-year-old kid out of love, with 100% Telugu lyrics, proper devotion, and a festive beat.">Generate a Telugu devotional song on Lord Ganesha for Ganesh Chaturthi — inviting Lord Ganesha to our house, sung by a 12-year-old kid out of love, with 100% Telugu lyrics, proper devotion, and a festive beat.</textarea>
+      </div>
+      <button class="btn btn-secondary" id="buildBriefBtn" onclick="buildBriefFromInstruction()">
+        Populate Brief & Lyrics
+      </button>
+    </section>
+
+    <div class="studio-grid">
+      <!-- Left Column: Song Brief, Style & Native Lyrics -->
+      <section class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">2. Lyrics & Musical Architecture</h2>
+          <span class="panel-subtitle">Modify lyrics, tempo, key & instrumentation</span>
+        </div>
+
+        <div class="field-row">
+          <div class="field" style="grid-column: span 2;">
+            <label for="songTitle">Song Title</label>
+            <input type="text" id="songTitle" value="రావయ్య గణపయ్యా మా ఇంటికి (Raavayya Ganapayya Maa Intiki)" />
+          </div>
+          <div class="field">
+            <label for="vocalLang">Vocal Language</label>
+            <select id="vocalLang">
+              <option value="te" selected>Telugu (తెలుగు - te)</option>
+              <option value="hi">Hindi (हिन्दी - hi)</option>
+              <option value="ta">Tamil (தமிழ் - ta)</option>
+              <option value="sa">Sanskrit (संस्कृतम् - sa)</option>
+              <option value="bn">Bengali (বাংলা - bn)</option>
+              <option value="pa">Punjabi (ਪੰਜਾਬੀ - pa)</option>
+              <option value="en">English (en)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="bpmInput">Tempo (BPM)</label>
+            <input type="number" id="bpmInput" value="108" min="50" max="200" />
+          </div>
+          <div class="field">
+            <label for="keyInput">Scale / Key</label>
+            <input type="text" id="keyInput" value="D major" />
+          </div>
+          <div class="field">
+            <label for="durationInput">Duration (sec)</label>
+            <input type="number" id="durationInput" value="60" min="20" max="180" />
+          </div>
+          <div class="field">
+            <label for="seedInput">Seed (-1 = Random)</label>
+            <input type="text" id="seedInput" value="-1" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="stylePrompt">Style, Vocal Persona & Instrumentation Prompt</label>
+          <textarea id="stylePrompt" class="style-box"></textarea>
+        </div>
+
+        <div class="field">
+          <label for="lyricsInput">
+            <span>Complete Song Lyrics (Native Script with [Intro], [Chorus], [Verse], [Outro])</span>
+            <span class="val">100% Telugu Locked</span>
+          </label>
+          <textarea id="lyricsInput" class="lyrics-box"></textarea>
+        </div>
+
+        <details>
+          <summary>MiniMax-H3 Multimodal Video Prompt & Advanced Cloud Settings</summary>
+          <div style="display:flex; flex-direction:column; gap:12px; margin-top:10px;">
+            <div class="field-row">
+              <div class="field">
+                <label for="stepsInput">Diffusion Steps</label>
+                <input type="number" id="stepsInput" value="8" min="4" max="20" />
+              </div>
+              <div class="field">
+                <label for="guidanceInput">Guidance Scale</label>
+                <input type="number" id="guidanceInput" value="7.0" step="0.5" />
+              </div>
+              <div class="field">
+                <label for="hfToken">Optional HF Token (for ZeroGPU Pro)</label>
+                <input type="password" id="hfToken" placeholder="hf_..." />
+              </div>
+            </div>
+            <div class="field">
+              <label for="h3Prompt">MiniMax-H3 T2VA Audiovisual Prompt</label>
+              <textarea id="h3Prompt" class="h3-box"></textarea>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <!-- Right Column: Vocal Timbre Mastering Console & Player -->
+      <section class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">3. Vocal Timbre & Studio Mastering Desk</h2>
+          <span class="panel-subtitle">SoxR Varispeed + EBU R128</span>
+        </div>
+
+        <div class="field">
+          <label>Vocal Age & Timbre Preset</label>
+          <div class="preset-chips">
+            <button type="button" class="chip active" data-st="1.0" onclick="selectPreset(this, 1.0)">
+              <strong>12-Year-Old Boy Master ★</strong>
+              <span>+1.0 st · 1.0595x SoxR Varispeed</span>
+            </button>
+            <button type="button" class="chip" data-st="1.5" onclick="selectPreset(this, 1.5)">
+              <strong>Young Child Vocal</strong>
+              <span>+1.5 st · 1.0905x SoxR Varispeed</span>
+            </button>
+            <button type="button" class="chip" data-st="0.5" onclick="selectPreset(this, 0.5)">
+              <strong>Teen Devotional Vocal</strong>
+              <span>+0.5 st · 1.0293x SoxR Varispeed</span>
+            </button>
+            <button type="button" class="chip" data-st="0.0" onclick="selectPreset(this, 0.0)">
+              <strong>Original Studio Pitch</strong>
+              <span>0.0 st · 1.0000x Unshifted D Major</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="semitoneSlider">
+            <span>Fine Vocal Pitch / Formant Varispeed (Semitones)</span>
+            <span class="val" id="semitoneVal">+1.0 st (1.059x)</span>
+          </label>
+          <input type="range" id="semitoneSlider" min="-3.0" max="3.0" step="0.1" value="1.0" oninput="updateSliders()" />
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="bassSlider">
+              <span>Dholak/Mridangam (95Hz)</span>
+              <span class="val" id="bassVal">+2.0 dB</span>
+            </label>
+            <input type="range" id="bassSlider" min="-3.0" max="6.0" step="0.5" value="2.0" oninput="updateSliders()" />
+          </div>
+          <div class="field">
+            <label for="presenceSlider">
+              <span>Vocal Presence (3.2kHz)</span>
+              <span class="val" id="presenceVal">+1.5 dB</span>
+            </label>
+            <input type="range" id="presenceSlider" min="-3.0" max="5.0" step="0.5" value="1.5" oninput="updateSliders()" />
+          </div>
+          <div class="field">
+            <label for="airSlider">
+              <span>Bell Shimmer (10.5kHz)</span>
+              <span class="val" id="airVal">+2.0 dB</span>
+            </label>
+            <input type="range" id="airSlider" min="-2.0" max="6.0" step="0.5" value="2.0" oninput="updateSliders()" />
+          </div>
+        </div>
+
+        <div class="action-stack">
+          <button class="btn btn-brass" id="remasterBtn" onclick="runInstantRemaster()">
+            ⚡ Instant Vocal Remaster (2s)
+          </button>
+          <button class="btn btn-kumkum" id="generateBtn" onclick="runFullCloudGeneration()">
+            🎵 Generate New AI Song Take
+          </button>
+        </div>
+
+        <div class="status-box" id="statusBox">
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+          <div class="status-msg" id="statusMsg">Ready.</div>
+        </div>
+
+        <!-- Active Studio Master Player -->
+        <div class="player-deck">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="now-playing-title" id="nowPlayingTitle">రావయ్య గణపయ్యా మా ఇంటికి (12yo Boy Master)</div>
+            <span class="brand-tag" id="activeTakeBadge">ACTIVE MASTER</span>
+          </div>
+
+          <div class="ab-switch">
+            <button type="button" class="ab-btn active" id="abBtnPrimary" onclick="switchAB('primary')">
+              A: 12yo Vocal Master (320k MP3)
+            </button>
+            <button type="button" class="ab-btn" id="abBtnOriginal" onclick="switchAB('original')">
+              B: Original Pitch Master (D Maj)
+            </button>
+          </div>
+
+          <audio id="audioPlayer" controls preload="metadata"></audio>
+
+          <div class="download-row" id="downloadLinks"></div>
+        </div>
+
+        <!-- Take History -->
+        <div class="field">
+          <label>Session Take Library (Click any take to audition or remaster)</label>
+          <div class="take-list" id="takeList"></div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    let libraryTakes = [];
+    let currentTake = null;
+    let currentABMode = 'primary';
+
+    function updateSliders() {
+      const st = parseFloat(document.getElementById('semitoneSlider').value);
+      const ratio = Math.pow(2, st / 12).toFixed(3);
+      document.getElementById('semitoneVal').textContent = `${st >= 0 ? '+' : ''}${st.toFixed(1)} st (${ratio}x)`;
+
+      const bass = parseFloat(document.getElementById('bassSlider').value);
+      document.getElementById('bassVal').textContent = `${bass >= 0 ? '+' : ''}${bass.toFixed(1)} dB`;
+
+      const pres = parseFloat(document.getElementById('presenceSlider').value);
+      document.getElementById('presenceVal').textContent = `${pres >= 0 ? '+' : ''}${pres.toFixed(1)} dB`;
+
+      const air = parseFloat(document.getElementById('airSlider').value);
+      document.getElementById('airVal').textContent = `${air >= 0 ? '+' : ''}${air.toFixed(1)} dB`;
+    }
+
+    function selectPreset(btn, semitones) {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('semitoneSlider').value = semitones;
+      updateSliders();
+    }
+
+    function populateFieldsFromTake(take) {
+      if (!take) return;
+      document.getElementById('songTitle').value = take.title || '';
+      if (take.brief_text) document.getElementById('briefInstruction').value = take.brief_text;
+      document.getElementById('vocalLang').value = take.vocal_language || 'te';
+      document.getElementById('bpmInput').value = take.bpm || 108;
+      document.getElementById('keyInput').value = take.key_scale || 'D major';
+      document.getElementById('durationInput').value = take.duration || 60;
+      if (take.style_prompt) document.getElementById('stylePrompt').value = take.style_prompt;
+      if (take.lyrics) document.getElementById('lyricsInput').value = take.lyrics;
+      if (take.h3_prompt) document.getElementById('h3Prompt').value = take.h3_prompt;
+      if (typeof take.semitone_shift === 'number') {
+        document.getElementById('semitoneSlider').value = take.semitone_shift;
+        updateSliders();
+      }
+    }
+
+    function selectTake(index, autoPlay = false) {
+      currentTake = libraryTakes[index];
+      if (!currentTake) return;
+
+      document.querySelectorAll('.take-item').forEach((el, idx) => {
+        el.classList.toggle('active', idx === index);
+      });
+
+      document.getElementById('nowPlayingTitle').textContent = currentTake.title;
+      document.getElementById('activeTakeBadge').textContent = `${currentTake.semitone_shift >= 0 ? '+' : ''}${Number(currentTake.semitone_shift).toFixed(1)} st · -14 LUFS`;
+
+      updatePlayerSource(autoPlay);
+      renderDownloadLinks(currentTake);
+    }
+
+    function switchAB(mode) {
+      currentABMode = mode;
+      document.getElementById('abBtnPrimary').classList.toggle('active', mode === 'primary');
+      document.getElementById('abBtnOriginal').classList.toggle('active', mode === 'original');
+      updatePlayerSource(true);
+    }
+
+    function updatePlayerSource(autoPlay = false) {
+      if (!currentTake || !currentTake.files) return;
+      const player = document.getElementById('audioPlayer');
+      const prevTime = player.currentTime || 0;
+      const src = currentABMode === 'primary'
+        ? currentTake.files.primary_mp3
+        : currentTake.files.original_pitch_mp3;
+
+      player.src = src + '?t=' + Date.now();
+      player.onloadedmetadata = () => {
+        if (prevTime > 0 && prevTime < player.duration - 1) {
+          player.currentTime = prevTime;
+        }
+        if (autoPlay) player.play().catch(() => {});
+      };
+    }
+
+    function renderDownloadLinks(take) {
+      const wrap = document.getElementById('downloadLinks');
+      if (!take || !take.files) {
+        wrap.innerHTML = '';
+        return;
+      }
+      wrap.innerHTML = `
+        <a href="${take.files.primary_mp3}" download>⬇ 12yo Master MP3 (320k)</a>
+        <a href="${take.files.original_pitch_mp3}" download>⬇ Original Pitch MP3</a>
+        <a href="${take.files.wav_master}" download>⬇ Lossless 24-bit WAV</a>
+        <a href="${take.files.brief_md}" target="_blank">📄 Production Brief (.md)</a>
+      `;
+    }
+
+    function renderTakeList() {
+      const list = document.getElementById('takeList');
+      list.innerHTML = libraryTakes.map((t, i) => `
+        <div class="take-item ${currentTake && currentTake.id === t.id ? 'active' : ''}" onclick="selectTake(${i}, true)">
+          <div class="take-meta">
+            <h4>${t.title}</h4>
+            <p>${t.created_at} · ${t.vocal_language.toUpperCase()} · ${t.bpm} BPM · ${t.semitone_shift >= 0 ? '+' : ''}${Number(t.semitone_shift).toFixed(1)} st</p>
+          </div>
+          <span class="brand-tag">▶ Play</span>
+        </div>
+      `).join('');
+    }
+
+    async function loadStudioLibrary() {
+      const res = await fetch('/api/library');
+      const data = await res.json();
+      libraryTakes = data.takes || [];
+      if (libraryTakes.length > 0) {
+        populateFieldsFromTake(libraryTakes[0]);
+        selectTake(0, false);
+      } else if (data.presets && data.presets.ganesh_chaturthi_telugu_12yo) {
+        populateFieldsFromTake(data.presets.ganesh_chaturthi_telugu_12yo);
+      }
+      renderTakeList();
+    }
+
+    async function buildBriefFromInstruction() {
+      const instruction = document.getElementById('briefInstruction').value;
+      const res = await fetch('/api/brief', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ instruction })
+      });
+      const data = await res.json();
+      if (data.brief) {
+        populateFieldsFromTake(data.brief);
+      }
+    }
+
+    function showStatus(msg, pct) {
+      const box = document.getElementById('statusBox');
+      box.classList.add('visible');
+      document.getElementById('statusMsg').textContent = msg;
+      document.getElementById('progressFill').style.width = `${Math.max(4, Math.min(100, pct * 100))}%`;
+    }
+
+    async function runInstantRemaster() {
+      const btn = document.getElementById('remasterBtn');
+      btn.disabled = true;
+      const st = parseFloat(document.getElementById('semitoneSlider').value);
+      showStatus(`Running FFmpeg SoxR varispeed (${st >= 0 ? '+' : ''}${st.toFixed(1)} st) + EBU R128 (-14 LUFS) remaster...`, 0.45);
+
+      try {
+        const payload = {
+          slug: currentTake ? currentTake.slug : 'Raavayya_Ganapayya_Reference',
+          title: `${document.getElementById('songTitle').value.split('(')[0].trim()} (${st >= 0 ? '+' : ''}${st.toFixed(1)}st Master)`,
+          brief_text: document.getElementById('briefInstruction').value,
+          vocal_language: document.getElementById('vocalLang').value,
+          bpm: parseInt(document.getElementById('bpmInput').value, 10) || 108,
+          key_scale: document.getElementById('keyInput').value,
+          style_prompt: document.getElementById('stylePrompt').value,
+          lyrics: document.getElementById('lyricsInput').value,
+          h3_prompt: document.getElementById('h3Prompt').value,
+          semitone_shift: st,
+          bass_db: parseFloat(document.getElementById('bassSlider').value),
+          presence_db: parseFloat(document.getElementById('presenceSlider').value),
+          air_db: parseFloat(document.getElementById('airSlider').value),
+          target_lufs: -14.0
+        };
+
+        const res = await fetch('/api/remaster', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        if (data.status === 'done' && data.take) {
+          showStatus('Instant SoxR Vocal Timbre Remaster complete! Playing now.', 1.0);
+          libraryTakes.unshift(data.take);
+          currentABMode = 'primary';
+          document.getElementById('abBtnPrimary').classList.add('active');
+          document.getElementById('abBtnOriginal').classList.remove('active');
+          renderTakeList();
+          selectTake(0, true);
+        } else {
+          showStatus(`Remaster error: ${data.error || 'Unknown error'}`, 1.0);
+        }
+      } catch (err) {
+        showStatus(`Remaster failed: ${err.message}`, 1.0);
+      } finally {
+        btn.disabled = false;
+      }
+    }
+
+    async function runFullCloudGeneration() {
+      const genBtn = document.getElementById('generateBtn');
+      genBtn.disabled = true;
+      showStatus('Submitting song brief & native lyrics to ACE-Step v1.5 Turbo...', 0.05);
+
+      try {
+        const payload = {
+          title: document.getElementById('songTitle').value,
+          brief_text: document.getElementById('briefInstruction').value,
+          vocal_language: document.getElementById('vocalLang').value,
+          bpm: parseInt(document.getElementById('bpmInput').value, 10) || 108,
+          key_scale: document.getElementById('keyInput').value,
+          duration: parseInt(document.getElementById('durationInput').value, 10) || 60,
+          seed: document.getElementById('seedInput').value,
+          style_prompt: document.getElementById('stylePrompt').value,
+          lyrics: document.getElementById('lyricsInput').value,
+          h3_prompt: document.getElementById('h3Prompt').value,
+          inference_steps: parseInt(document.getElementById('stepsInput').value, 10) || 8,
+          guidance_scale: parseFloat(document.getElementById('guidanceInput').value) || 7.0,
+          semitone_shift: parseFloat(document.getElementById('semitoneSlider').value),
+          hf_token: document.getElementById('hfToken').value
+        };
+
+        const res = await fetch('/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        const { job_id } = await res.json();
+
+        const poll = setInterval(async () => {
+          const jr = await fetch(`/api/jobs/${job_id}`);
+          const jd = await jr.json();
+          showStatus(jd.message || 'Generating...', jd.progress || 0.2);
+
+          if (jd.status === 'done' && jd.take) {
+            clearInterval(poll);
+            genBtn.disabled = false;
+            libraryTakes.unshift(jd.take);
+            renderTakeList();
+            selectTake(0, true);
+          } else if (jd.status === 'error') {
+            clearInterval(poll);
+            genBtn.disabled = false;
+          }
+        }, 3000);
+      } catch (err) {
+        showStatus(`Generation error: ${err.message}`, 1.0);
+        genBtn.disabled = false;
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadStudioLibrary);
+  </script>
+</body>
+</html>
